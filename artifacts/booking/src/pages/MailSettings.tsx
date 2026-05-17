@@ -7,12 +7,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { Badge } from "@/components/ui/badge";
 import {
   Mail,
   CheckCircle2,
   AlertCircle,
   Loader2,
+  Save,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient } from "@/lib/queryClient";
@@ -84,11 +84,11 @@ export default function MailSettings() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/mail-settings"] });
-      toast({ title: "Mail settings updated successfully" });
+      toast({ title: "Email settings saved successfully" });
     },
     onError: (error: any) => {
       toast({
-        title: "Failed to update mail settings",
+        title: "Could not save email settings",
         description: error.message,
         variant: "destructive",
       });
@@ -107,12 +107,26 @@ export default function MailSettings() {
 
   return (
     <AppLayout>
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Email Notifications</h1>
-        <p className="text-muted-foreground">
-          Configure email templates and notification settings for customer emails.
-          Emails are sent via the platform Mailgun account.
-        </p>
+      {/* Sticky page header with single Save button */}
+      <div className="sticky top-14 md:top-0 z-20 -mx-4 md:-mx-8 px-4 md:px-8 py-3 bg-background/95 backdrop-blur-sm border-b flex items-center justify-between mb-8">
+        <div>
+          <h1 className="text-xl font-display font-bold">Email Notifications</h1>
+          <p className="text-sm text-muted-foreground hidden md:block">
+            Configure email templates sent via the platform Mailgun account.
+          </p>
+        </div>
+        <Button
+          onClick={() => updateMutation.mutate(form)}
+          disabled={updateMutation.isPending || isLoading}
+          className="gap-2"
+        >
+          {updateMutation.isPending ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
+          ) : (
+            <Save className="w-4 h-4" />
+          )}
+          {updateMutation.isPending ? "Saving…" : "Save Changes"}
+        </Button>
       </div>
 
       {isLoading ? (
@@ -156,18 +170,6 @@ export default function MailSettings() {
                   Available variables: {'{customerName}'}, {'{storeName}'}, {'{appointmentDate}'}, {'{appointmentTime}'}, {'{serviceName}'}
                 </p>
               </div>
-
-              <Button
-                onClick={() => updateMutation.mutate(form)}
-                disabled={updateMutation.isPending}
-                variant="outline"
-                className="w-full"
-              >
-                {updateMutation.isPending && (
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                )}
-                Save Confirmation Template
-              </Button>
             </CardContent>
           </Card>
 
@@ -199,6 +201,7 @@ export default function MailSettings() {
                   type="number"
                   min="1"
                   max="72"
+                  className="w-32"
                   value={form.reminderHoursBefore || 24}
                   onChange={(e) =>
                     setForm({
@@ -224,18 +227,6 @@ export default function MailSettings() {
                   Available variables: {'{customerName}'}, {'{storeName}'}, {'{appointmentDate}'}, {'{appointmentTime}'}, {'{serviceName}'}
                 </p>
               </div>
-
-              <Button
-                onClick={() => updateMutation.mutate(form)}
-                disabled={updateMutation.isPending}
-                variant="outline"
-                className="w-full"
-              >
-                {updateMutation.isPending && (
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                )}
-                Save Reminder Template
-              </Button>
             </CardContent>
           </Card>
 
@@ -285,18 +276,6 @@ export default function MailSettings() {
                   Available variables: {'{customerName}'}, {'{storeName}'}, {'{reviewUrl}'}
                 </p>
               </div>
-
-              <Button
-                onClick={() => updateMutation.mutate(form)}
-                disabled={updateMutation.isPending}
-                variant="outline"
-                className="w-full"
-              >
-                {updateMutation.isPending && (
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                )}
-                Save Review Template
-              </Button>
             </CardContent>
           </Card>
         </div>
