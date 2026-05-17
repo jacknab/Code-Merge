@@ -12,7 +12,6 @@ export function Layout({ children }: LayoutProps) {
   const isEditorPage = /^\/websites\/\d+\/edit/.test(location);
 
   const navLinks: { href: string; label: string; external?: boolean; disabled?: boolean }[] = [
-    { href: "https://certxa.com/SalonOS", label: "SalonOS", external: true },
     { href: "/templates", label: "Templates" },
     { href: "/websites", label: "My Websites" },
     { href: "/settings", label: "Settings" },

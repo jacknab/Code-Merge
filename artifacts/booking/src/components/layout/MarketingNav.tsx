@@ -22,7 +22,6 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { label: "SalonOS", href: "/salonos.php", style: { fontWeight: 700, color: PLUM_MID } },
   {
     label: "How It Works",
     dropdown: [
