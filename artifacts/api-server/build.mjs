@@ -22,12 +22,27 @@ async function buildAll() {
     outdir: distDir,
     outExtension: { ".js": ".mjs" },
     logLevel: "info",
+    alias: {
+      "@shared/schema/billing": path.resolve(artifactDir, "../../shared/schema/billing"),
+      "@shared/schema/intelligence": path.resolve(artifactDir, "../../shared/schema/intelligence"),
+      "@shared/schema/clients": path.resolve(artifactDir, "../../shared/schema/clients"),
+      "@shared/schema": path.resolve(artifactDir, "../../shared/schema"),
+      "@shared/permissions": path.resolve(artifactDir, "../../shared/permissions"),
+      "@shared/models/auth": path.resolve(artifactDir, "../../shared/models/auth"),
+      "@shared/routes": path.resolve(artifactDir, "../../shared/routes"),
+      "@workspace-scripts/migrate-customers-to-clients": path.resolve(artifactDir, "../../scripts/src/migrate-customers-to-clients"),
+    },
     // Some packages may not be bundleable, so we externalize them, we can add more here as needed.
     // Some of the packages below may not be imported or installed, but we're adding them in case they are in the future.
     // Examples of unbundleable packages:
     // - uses native modules and loads them dynamically (e.g. sharp)
     // - use path traversal to read files (e.g. @google-cloud/secret-manager loads sibling .proto files)
     external: [
+      // ORM / schema / validation — pulled in transitively through @shared/*
+      "drizzle-orm",
+      "drizzle-orm/*",
+      "drizzle-zod",
+      "zod",
       "*.node",
       "sharp",
       "better-sqlite3",
@@ -100,6 +115,8 @@ async function buildAll() {
       "puppeteer",
       "puppeteer-core",
       "electron",
+      // Replit-only packages — not available on VPS, excluded from bundle
+      "stripe-replit-sync",
     ],
     sourcemap: "linked",
     plugins: [

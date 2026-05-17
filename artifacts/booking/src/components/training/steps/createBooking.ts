@@ -1,0 +1,68 @@
+import type { StepDescriptor } from "../types";
+
+export const CREATE_BOOKING_STEPS: StepDescriptor[] = [
+  {
+    id: "pick-category",
+    testid: "button-category-haircuts",
+    testidPrefix: "button-category-",
+    title: "Start by picking a service category",
+    body: "Tap a category on the left to see the services in that group.",
+    why: "Categories keep the menu short so you can find the right service in two taps.",
+    advance: { kind: "any-click", testidPrefix: "button-category-" },
+  },
+  {
+    id: "pick-service",
+    testid: "card-service-1",
+    testidPrefix: "card-service-",
+    title: "Pick the service the client wants",
+    body: "Tap the service card. You can change it later from the summary.",
+    advance: { kind: "any-click", testidPrefix: "card-service-" },
+  },
+  {
+    id: "skip-or-pick-addons",
+    testid: "button-no-addons",
+    title: "Add extras — or skip",
+    body: "Pick any add-ons (color, treatments, etc.) or tap “No add-ons” to move on.",
+    why: "Add-ons let you bundle a single appointment instead of creating two bookings.",
+    advance: { kind: "any-click", testidPrefix: "button-request-booking" },
+  },
+  {
+    id: "pick-staff",
+    testid: "card-staff-any",
+    testidPrefix: "card-staff-",
+    title: "Choose a staff member",
+    body: "Tap “Any Staff” for the soonest opening, or pick a specific person.",
+    why: "“Any Staff” gives the client more time options because we look across everyone.",
+    advance: { kind: "any-click", testidPrefix: "card-staff-" },
+  },
+  {
+    id: "confirm-staff",
+    testid: "button-staff-continue",
+    title: "Continue to time slots",
+    body: "Tap Continue to see open times for your staff choice.",
+    advance: { kind: "click", testid: "button-staff-continue" },
+  },
+  {
+    id: "pick-slot",
+    testid: "tab-time",
+    testidPrefix: "button-slot-",
+    title: "Pick an open time",
+    body: "Tap a green time slot. Times shown are real openings on the schedule.",
+    advance: { kind: "any-click", testidPrefix: "button-slot-" },
+  },
+  {
+    id: "complete-booking",
+    testid: "button-complete-booking",
+    title: "Complete the booking",
+    body: "Review the summary on the right and tap “Complete Booking”.",
+    why: "This is the moment the appointment is saved and the client gets a confirmation.",
+    advance: { kind: "click", testid: "button-complete-booking" },
+  },
+  {
+    id: "confirm-success",
+    testid: "button-confirmation-ok",
+    title: "All done — close the confirmation",
+    body: "Tap OK to return to the calendar. The booking is already saved.",
+    advance: { kind: "click", testid: "button-confirmation-ok" },
+  },
+];

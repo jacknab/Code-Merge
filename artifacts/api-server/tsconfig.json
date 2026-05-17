@@ -3,7 +3,14 @@
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
-    "types": ["node"]
+    "types": ["node"],
+    "paths": {
+      "@shared/*": ["../../shared/*"],
+      "@shared/schema": ["../../shared/schema/index"],
+      "@shared/permissions": ["../../shared/permissions"],
+      "@shared/models/*": ["../../shared/models/*"],
+      "@shared/routes": ["../../shared/routes"]
+    }
   },
   "include": ["src"],
   "references": [

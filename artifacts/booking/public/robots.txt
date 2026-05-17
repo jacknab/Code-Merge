@@ -1,0 +1,32 @@
+# Robots.txt for Certxa - Online Booking Service
+# Allow search engines to crawl public pages
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /auth/
+Disallow: /dashboard/
+Disallow: /calendar/
+Disallow: /staff/
+Disallow: /services/
+Disallow: /customers/
+Disallow: /products/
+Disallow: /admin/
+
+# Allow Google
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /auth/
+
+# Allow Bing
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Disallow: /auth/
+
+# Crawl delay
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://mysalon.me/sitemap.xml
